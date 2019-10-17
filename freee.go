@@ -5,7 +5,7 @@ import (
 	"net/url"
 )
 
-const defaultBaseRawurl = "https://api.freee.co.jp/"
+const defaultBaseRawurl = "https://api.freee.co.jp/api/1/"
 
 // Client is freee client.
 type Client struct {
