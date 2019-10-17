@@ -1,0 +1,56 @@
+version: 2
+
+references:
+  test-steps: &test-steps
+    steps:
+      - checkout
+      - run:
+          name: Install tools
+          command: make -s install-tools
+      - restore_cache:
+          name: Restore module caches
+          keys:
+            - go-modules-v1-{{ .Branch }}-{{ checksum "go.sum" }}
+            - go-modules-v1-{{ .Branch }}-
+            - go-modules-v1-
+      - run:
+          name: Download modules
+          command: make -s mod-download
+      - save_cache:
+          name: Save module caches
+          key: go-modules-v1-{{ .Branch }}-{{ checksum "go.sum" }}
+          paths:
+            - /go/pkg/mod
+      - run:
+          name: Check fmt difference
+          command: make -s fmt-diff
+      - run:
+          name: Run ci-lint
+          command: make -s ci-lint
+      - run:
+          name: Run lint
+          command: make -s lint
+      - run:
+          name: Run vet
+          command: make -s vet
+      - run:
+          name: Test
+          command: make -s test
+
+jobs:
+  test-1.12:
+    docker:
+      - image: circleci/golang:1.12
+    <<: *test-steps
+
+  test-1.13:
+    docker:
+      - image: circleci/golang:1.13
+    <<: *test-steps
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-1.12
+      - test-1.13
