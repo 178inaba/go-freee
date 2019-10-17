@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"log"
 
 	"github.com/178inaba/go-freee"
 	"golang.org/x/oauth2"
@@ -13,5 +14,8 @@ func main() {
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: "... your access token ..."})
 	tc := oauth2.NewClient(ctx, ts)
 
-	freee.NewClient(tc)
+	_, err := freee.NewClient(tc)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
