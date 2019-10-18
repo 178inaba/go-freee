@@ -24,6 +24,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Printf("%#v\n", u)
 
-	fmt.Println(u)
+	uc, err := c.UserCapability(ctx, 2000724)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%#v\n", uc)
 }
