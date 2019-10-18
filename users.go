@@ -2,11 +2,11 @@ package freee
 
 import (
 	"context"
-	"encoding/json"
 	"net/http"
-	"path"
+	"net/url"
 )
 
+// User is user.
 type User struct {
 	ID            int           `json:"id"`
 	Email         string        `json:"email"`
@@ -18,6 +18,7 @@ type User struct {
 	Companies     []UserCompany `json:"companies"`
 }
 
+// UserCompany is user company.
 type UserCompany struct {
 	ID            int    `json:"id"`
 	DisplayName   string `json:"display_name"`
@@ -27,29 +28,16 @@ type UserCompany struct {
 
 // User returns login user.
 func (c *Client) User(ctx context.Context) (*User, error) {
-	u, err := c.BaseURL.Parse(path.Join(c.BaseURL.Path, "users/me"))
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, u.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Set("accept", "application/json")
-	resp, err := c.client.Do(req.WithContext(ctx))
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	var uw struct {
+	var u struct {
 		User `json:"user"`
 	}
-	if err := json.NewDecoder(resp.Body).Decode(&uw); err != nil {
+
+	q := url.Values{}
+	q.Set("companies", "true")
+
+	if err := c.do(ctx, http.MethodGet, "users/me", q, &u); err != nil {
 		return nil, err
 	}
 
-	return &uw.User, nil
+	return &u.User, nil
 }
