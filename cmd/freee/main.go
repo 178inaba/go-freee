@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 
 	"github.com/178inaba/go-freee"
@@ -99,8 +100,14 @@ func login(c *cli.Context) error {
 	oc := c.App.Metadata["oauth2_client"].(*oauth2.Config)
 	fp := c.App.Metadata["credentials_filepath"].(string)
 
-	fmt.Fprint(c.App.Writer, "Go to the following link in your browser:\n\n")
-	fmt.Fprintf(c.App.Writer, "    %s\n\n\n", oc.AuthCodeURL(""))
+	authCodeRawurl := oc.AuthCodeURL("")
+	if err := exec.CommandContext(ctx, "open", authCodeRawurl).Run(); err != nil {
+		fmt.Fprint(c.App.Writer, "Go to the following link in your browser:\n\n")
+	} else {
+		fmt.Fprint(c.App.Writer, "Your browser has been opened to visit:\n\n")
+	}
+
+	fmt.Fprintf(c.App.Writer, "    %s\n\n\n", authCodeRawurl)
 	fmt.Fprint(c.App.Writer, "Enter verification code: ")
 
 	var code string
@@ -144,7 +151,7 @@ func login(c *cli.Context) error {
 		return xerrors.Errorf("user: %w", err)
 	}
 
-	fmt.Fprintf(c.App.Writer, "You are now logged in as [%s].\n", u.Email)
+	fmt.Fprintf(c.App.Writer, "\nYou are now logged in as [%s].\n", u.Email)
 
 	return nil
 }
