@@ -76,7 +76,7 @@ func before(c *cli.Context) error {
 		defer f.Close()
 
 		var t oauth2.Token
-		if json.NewDecoder(f).Decode(&t); err != nil {
+		if err := json.NewDecoder(f).Decode(&t); err != nil {
 			return xerrors.Errorf("decode credentials json: %w", err)
 		}
 

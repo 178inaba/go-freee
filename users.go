@@ -61,11 +61,11 @@ type UserCapability struct {
 	ReportsIncomeExpense         Capability `json:"reports_income_expense"`
 	ReportsReceivables           Capability `json:"reports_receivables"`
 	ReportsPayables              Capability `json:"reports_payables"`
-	ReportsCash_balance          Capability `json:"reports_cash_balance"`
+	ReportsCashBalance           Capability `json:"reports_cash_balance"`
 	ReportsCrosstabs             Capability `json:"reports_crosstabs"`
 	ReportsGeneralLedgers        Capability `json:"reports_general_ledgers"`
-	ReportsPl                    Capability `json:"reports_pl"`
-	ReportsBs                    Capability `json:"reports_bs"`
+	ReportsPL                    Capability `json:"reports_pl"`
+	ReportsBS                    Capability `json:"reports_bs"`
 	ReportsJournals              Capability `json:"reports_journals"`
 	ReportsManagementsPlanning   Capability `json:"reports_managements_planning"`
 	ReportsManagementsNavigation Capability `json:"reports_managements_navigation"`
