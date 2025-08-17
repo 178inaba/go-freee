@@ -1,0 +1,13 @@
+services:
+  lint:
+    image: golangci/golangci-lint:v2.4.0
+    entrypoint: ['golangci-lint', 'run']
+    volumes:
+      - .:/go-freee
+      - gomod-cache:/go/pkg/mod
+      - lint-cache:/root/.cache
+    working_dir: /go-freee
+
+volumes:
+  gomod-cache:
+  lint-cache:
