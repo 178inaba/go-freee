@@ -3,18 +3,18 @@ updates:
   - package-ecosystem: docker-compose
     directory: /
     schedule:
-      interval: monthly
+      interval: yearly
     assignees:
       - 178inaba
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: monthly
+      interval: yearly
     assignees:
       - 178inaba
   - package-ecosystem: gomod
     directory: /
     schedule:
-      interval: monthly
+      interval: yearly
     assignees:
       - 178inaba
