@@ -13,6 +13,6 @@ require (
 	github.com/golang/protobuf v1.2.0 // indirect
 	github.com/russross/blackfriday/v2 v2.0.1 // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
-	golang.org/x/net v0.0.0-20190108225652-1e06a53dbb7e // indirect
+	golang.org/x/net v0.38.0 // indirect
 	google.golang.org/appengine v1.4.0 // indirect
 )
