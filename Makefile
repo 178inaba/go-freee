@@ -1,9 +1,6 @@
-.PHONY: all mod-download fmt fmt-diff ci-lint lint vet test install-tools
+.PHONY: all fmt fmt-diff lint lint-fix vet test go-install-tools
 
-all: fmt-diff ci-lint lint vet test
-
-mod-download:
-	go mod download
+all: fmt lint-fix lint vet test
 
 fmt:
 	goimports -w .
@@ -11,17 +8,17 @@ fmt:
 fmt-diff:
 	test -z $$(goimports -l .) || (goimports -d . && exit 1)
 
-ci-lint:
-	golangci-lint run
-
 lint:
-	golint -set_exit_status ./...
+	docker compose run --rm lint
+
+lint-fix:
+	docker compose run --rm lint --fix
 
 vet:
 	go vet ./...
 
 test:
-	go test -count=1 -race ./...
+	go test -race -cover ./...
 
-install-tools:
-	GO111MODULE=off go get -u golang.org/x/lint/golint golang.org/x/tools/cmd/goimports github.com/golangci/golangci-lint/cmd/golangci-lint
+go-install-tools:
+	go install golang.org/x/tools/cmd/goimports@latest
