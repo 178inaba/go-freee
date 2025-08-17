@@ -1,3 +1,3 @@
 # go-freee
 
-[![CircleCI](https://circleci.com/gh/178inaba/go-freee.svg?style=svg)](https://circleci.com/gh/178inaba/go-freee)
+[![Test](https://github.com/178inaba/go-freee/actions/workflows/test.yml/badge.svg)](https://github.com/178inaba/go-freee/actions/workflows/test.yml)
