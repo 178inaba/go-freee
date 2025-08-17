@@ -4,7 +4,7 @@ go 1.25.0
 
 require (
 	github.com/urfave/cli v1.22.1
-	golang.org/x/oauth2 v0.27.0
+	golang.org/x/oauth2 v0.30.0
 	golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898
 )
 
